@@ -73,5 +73,17 @@ contract RPS {
             account0.transfer(reward / 2);
             account1.transfer(reward / 2);
         }
+        newRound(); // Enter New Round
+    }
+
+    // function for newRound will always be called after we pay the winner in previous round
+    function newRound() private {
+        numPlayer = 0;
+        reward = 0;
+        player_choice[players[0]] = 0;
+        player_choice[players[1]] = 0;
+        player_not_played[players[0]] = true;
+        player_not_played[players[1]] = true;
+        numInput = 0;
     }
 }
