@@ -6,10 +6,147 @@
 	"output": {
 		"abi": [
 			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "sender",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "bytes32",
+						"name": "dataHash",
+						"type": "bytes32"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint64",
+						"name": "block",
+						"type": "uint64"
+					}
+				],
+				"name": "CommitHash",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "sender",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "bytes32",
+						"name": "revealHash",
+						"type": "bytes32"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "random",
+						"type": "uint256"
+					}
+				],
+				"name": "RevealHash",
+				"type": "event"
+			},
+			{
 				"inputs": [],
 				"name": "addPlayer",
 				"outputs": [],
 				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "bytes32",
+						"name": "dataHash",
+						"type": "bytes32"
+					}
+				],
+				"name": "commit",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "commits",
+				"outputs": [
+					{
+						"internalType": "bytes32",
+						"name": "commit",
+						"type": "bytes32"
+					},
+					{
+						"internalType": "uint64",
+						"name": "block",
+						"type": "uint64"
+					},
+					{
+						"internalType": "bool",
+						"name": "revealed",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "elapsedMinutes",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "elapsedSeconds",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "bytes32",
+						"name": "data",
+						"type": "bytes32"
+					}
+				],
+				"name": "getHash",
+				"outputs": [
+					{
+						"internalType": "bytes32",
+						"name": "",
+						"type": "bytes32"
+					}
+				],
+				"stateMutability": "pure",
 				"type": "function"
 			},
 			{
@@ -23,6 +160,19 @@
 				"name": "input",
 				"outputs": [],
 				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "max",
+				"outputs": [
+					{
+						"internalType": "uint8",
+						"name": "",
+						"type": "uint8"
+					}
+				],
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -128,8 +278,41 @@
 				"type": "function"
 			},
 			{
+				"inputs": [
+					{
+						"internalType": "bytes32",
+						"name": "revealHash",
+						"type": "bytes32"
+					}
+				],
+				"name": "reveal",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
 				"inputs": [],
 				"name": "reward",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "setStartTime",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "startTime",
 				"outputs": [
 					{
 						"internalType": "uint256",
@@ -168,12 +351,36 @@
 		"remappings": []
 	},
 	"sources": {
-		"RPS.sol": {
-			"keccak256": "0x6ed3dd78b92dc3ba27643f45391bd0f447ef7286bb6f63170ef1a3617a8bff69",
+		"CommitReveal.sol": {
+			"keccak256": "0x5414bdffbeef37ec6ccf2838687113adef017a3564952f46c0f7f8e93c2671e3",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://250685ebe2f826e3287846dd7131574995558882bde831b0a2386ada0938522c",
-				"dweb:/ipfs/QmY9463Lo8C7ppYYpGGSBZswy662mHDrxJbQUkVsD2ekMb"
+				"bzz-raw://d3a0115515aa5551888b2927d9c0c1742ad7148e0b9cf2e516d8179def6681e0",
+				"dweb:/ipfs/QmRV6CddVL5oMzraamFfBLC2zaaMRFoXp7WQBuiFDhTx3w"
+			]
+		},
+		"Convert.sol": {
+			"keccak256": "0x2199db4e5d940abb1c231427b15ea27392493f02f324905b7edaf63e75a6009d",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://23722e4a3e4e13aa4192d3ca18747e2b49f5304c177bda788f9a60ec5f7d5fbb",
+				"dweb:/ipfs/QmbdZYKGeS2fWAVCvwwMiDQ11LeEJtZH35VF1qqiQfScwU"
+			]
+		},
+		"RPS.sol": {
+			"keccak256": "0x7a4f095a406c688e9892a3e7d84f5c685d890d88c7185ad762c4a21c56919c39",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://0cf1ffc491505aac2969c8a65de605937db54a78a52cd88eb6f25d5eae57ccce",
+				"dweb:/ipfs/QmRN7MVsfCVZw2C8ZQgCC2Wt7oVMnYMcQjZen8X1ooiV41"
+			]
+		},
+		"TimeUnit.sol": {
+			"keccak256": "0xcdf82b0436663a55772b3bd2ddba54c1873bb6005c1093aac9a1941575922f19",
+			"license": "GPL-3.0",
+			"urls": [
+				"bzz-raw://26d47b703cc4cb40d156ae84ec14b6ba07ed26504f5288c39259445c98098b9f",
+				"dweb:/ipfs/QmdrUyq81qsT8m8oZ5PrA7gxggmGZkNeFFcAFw3tn2yxA6"
 			]
 		}
 	},

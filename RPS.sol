@@ -1,9 +1,12 @@
-
 // SPDX-License-Identifier: GPL-3.0
 
 pragma solidity >=0.7.0 <0.9.0;
 
-contract RPS {
+import "./CommitReveal.sol";
+import "./TimeUnit.sol";
+import "./Convert.sol";
+
+contract RPS is CommitReveal, TimeUnit {
     uint public numPlayer = 0;
     uint public reward = 0;
     mapping (address => uint) public player_choice; // 0 - Rock, 1 - Spock , 2 - Paper , 3 - Lizard , 4 - Scissors
@@ -13,7 +16,6 @@ contract RPS {
     0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2, 
     0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db, 
     0x78731D3Ca6b7E34aC0F824c42a7cC18A495cabaB]; // 4 Accounts that we allow
-    
 
     uint public numInput = 0;
 
