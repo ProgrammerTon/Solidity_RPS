@@ -4,7 +4,6 @@ pragma solidity >=0.7.0 <0.9.0;
 
 import "./CommitReveal.sol";
 import "./TimeUnit.sol";
-import "./Convert.sol";
 
 contract RPS is CommitReveal, TimeUnit {
     uint public numPlayer = 0;
@@ -16,8 +15,11 @@ contract RPS is CommitReveal, TimeUnit {
     0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2, 
     0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db, 
     0x78731D3Ca6b7E34aC0F824c42a7cC18A495cabaB]; // 4 Accounts that we allow
+    
 
     uint public numInput = 0;
+
+    uint public timeout = 5 minutes; // set timeout
 
     function addPlayer() public payable {
         require(numPlayer < 2);
@@ -37,10 +39,24 @@ contract RPS is CommitReveal, TimeUnit {
         player_not_played[msg.sender] = true;
         players.push(msg.sender);
         numPlayer++;
+
+        address payable account0 = payable(players[0]);
+        address payable account1 = payable(players[1]);
+
+        setStartTime();  // Check Time Past
+        if (numPlayer == 2) {
+            uint timeElapsed = block.timestamp - startTime;
+            if (timeElapsed > timeout) {
+                account0.transfer(reward / 2);
+                account1.transfer(reward / 2);
+                newRound(); 
+            }
+        }
     }
 
     function input(uint choice) public  {
         require(numPlayer == 2);
+        require(block.timestamp - startTime <= timeout, "Timeout"); // Check the time not passed exceed timeout
         require(player_not_played[msg.sender]);
         require(choice == 0 || choice == 1 || choice == 2 || choice == 3 || choice == 4); // Add choices for Lizard and Spock
         player_choice[msg.sender] = choice;
